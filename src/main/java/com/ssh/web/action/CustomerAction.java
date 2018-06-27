@@ -27,12 +27,10 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
      */
     public String add() {
         System.out.println("Action中的add方法执行了...");
-
         customerService.add(customer);
         return NONE;
     }
     public String saveUI() {
         return "saveUI";
-
     }
 }
