@@ -2,7 +2,7 @@ package com.ssh.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-//测试???
+//aaa
 @Configuration
 @ComponentScan(basePackages = "com.ssh")
 public class Config {
