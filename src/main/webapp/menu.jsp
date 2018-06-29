@@ -136,7 +136,7 @@ A.active {
 												</TR>
 												<TR>
                                                     <TD class=menuSmall><A class=style2
-                                                                           href="/struts2_crm/customer_findAll.action"
+                                                                           href="/customer_findByPage.action"
                                                                            target=main>－ 客户列表</A></TD>
 												</TR>
 												

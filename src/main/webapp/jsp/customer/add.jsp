@@ -42,7 +42,7 @@
 </script>
 <BODY>
 <FORM id=form1 name=form1
-	  action="${pageContext.request.contextPath }/customer_save.action"
+	  action="${pageContext.request.contextPath }/customer_add.action"
 	  method=post>
 
 
@@ -94,13 +94,10 @@
 
 					<TR>
 
-						<td>信息来源 ：</td>
+						<td>移动电话 ：</td>
 						<td>
-							<%--<INPUT class=textbox id=sChannel2--%>
-							<%--style="WIDTH: 180px" maxLength=50 name="cust_source">--%>
-							<select id="cust_source" name="baseDictSource.dict_id">
-								<option value="">-请选择-</option>
-							</select>
+							<INPUT class=textbox id=sChannel2
+								   style="WIDTH: 180px" maxLength=50 name="cust_mobile">
 						</td>
 						<td>所属行业 ：</td>
 						<td>
@@ -120,10 +117,14 @@
 							<INPUT class=textbox id=sChannel2
 								   style="WIDTH: 180px" maxLength=50 name="cust_phone">
 						</td>
-						<td>移动电话 ：</td>
+
+						<td>信息来源 ：</td>
 						<td>
-							<INPUT class=textbox id=sChannel2
-								   style="WIDTH: 180px" maxLength=50 name="cust_mobile">
+							<%--<INPUT class=textbox id=sChannel2--%>
+							<%--style="WIDTH: 180px" maxLength=50 name="cust_source">--%>
+							<select id="cust_source" name="baseDictSource.dict_id">
+								<option value="">-请选择-</option>
+							</select>
 						</td>
 					</TR>
 

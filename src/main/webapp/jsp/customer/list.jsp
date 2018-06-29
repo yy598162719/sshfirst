@@ -84,24 +84,25 @@
 													<TD>客户名称</TD>
 													<TD>客户级别</TD>
 													<TD>客户来源</TD>
+													<TD>客户行业</TD>
 													<TD>电话</TD>
 													<TD>手机</TD>
 													<TD>操作</TD>
 												</TR>
 												<s:iterator value="list">
-                                                    <TR
-                                                            style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-                                                        <TD><s:property value="cust_name"/></TD>
-                                                        <TD><s:property value="cust_level"/></TD>
-                                                        <TD><s:property value="cust_source"/></TD>
-                                                        <TD><s:property value="cust_phone"/></TD>
-                                                        <TD><s:property value="cust_mobile"/></TD>
-                                                        <TD>
-                                                            <a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
-                                                            &nbsp;&nbsp;
-                                                            <a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.cust_id}">删除</a>
-                                                        </TD>
-                                                    </TR>
+													<TR
+															style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
+														<TD><s:property value="cust_name"/></TD>
+														<TD><s:property value="baseDictLevel.dict_item_name"/></TD>
+														<TD><s:property value="baseDictSource.dict_item_name"/></TD>
+														<TD><s:property value="baseDictIndustry.dict_item_name"/></TD>
+														<TD><s:property value="cust_phone"/></TD>
+														<TD><s:property value="cust_mobile"/></TD>
+														<TD>
+															<a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=<s:property value="cust_id"/>">修改</a>&nbsp;&nbsp;
+															<a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=<s:property value="cust_id"/>">删除</a>
+														</TD>
+													</TR>
 												</s:iterator>
 
 											</TBODY>
