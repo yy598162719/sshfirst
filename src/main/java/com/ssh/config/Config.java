@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 //试试
 @Configuration
 @ComponentScan(basePackages = "com.ssh")
+//1
 public class Config {
 
 }
