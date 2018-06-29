@@ -29,10 +29,18 @@
     <!-- 处理url的转发 -->
     <package name="ssh" extends="struts-default" namespace="/" strict-method-invocation="false">
         <!--2.3以后通过这种方法布置通配符 strict-method-invocation="false" 关闭-->
-
         <action name="customer_*" class="customerAction" method="{1}">
             <result name="saveUI">/jsp/customer/add.jsp</result>
             <result name="success">/jsp/customer/add.jsp</result>
+        </action>
+        <action name="user_*" class="userAction" method="{1}">
+            <result name="regist">/regist.jsp</result>
+            <result name="registSave" type="redirect">/login.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="success" type="redirect">/index.jsp</result>
+        </action>
+        <action name="baseDict_*" class="baseDictAction" method="{1}">
+
         </action>
     </package>
 </struts>

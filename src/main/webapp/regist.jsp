@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/frameset.dtd">
 <HTML xmlns="http://www.w3.org/1999/xhtml">
 <HEAD>
@@ -18,21 +17,11 @@
             FONT-FAMILY: 宋体
         }
     </STYLE>
-<script type="text/javascript">
-    function subForm() {
-        document.getElementById("form1").submit();
-    }
-
-    function subFormRegist() {
-        document.getElementById("form1").action = "${ pageContext.request.contextPath }/user_regist.action";
-        document.getElementById("form1").submit();
-    }
-</script>
 
     <META content="MSHTML 6.00.6000.16809" name=GENERATOR>
 </HEAD>
 <BODY>
-<FORM id=form1 action="${ pageContext.request.contextPath }/user_login.action" name=form1 method=post target="_parent">
+<FORM id=form1 name=form1 action="${ pageContext.request.contextPath }/user_registSave.action" method=post>
 
     <DIV id=UpdatePanel1>
         <DIV id=div1
@@ -46,11 +35,11 @@
             <TABLE cellSpacing=0 cellPadding=0 width=900 align=center border=0>
                 <TBODY>
                 <TR>
-                    <TD style="HEIGHT: 105px"><IMG src="images/login_1.gif"
+                    <TD style="HEIGHT: 105px"><IMG src="${ pageContext.request.contextPath }/images/login_1.gif"
                                                    border=0></TD>
                 </TR>
                 <TR>
-                    <TD background=images/login_2.jpg height=300>
+                    <TD background=${ pageContext.request.contextPath }/images/regist_bt.png height=300>
                         <TABLE height=300 cellPadding=0 width=900 border=0>
                             <TBODY>
                             <TR>
@@ -62,11 +51,11 @@
                                     <TABLE cellSpacing=0 cellPadding=2 border=0>
                                         <TBODY>
                                         <TR>
-                                            <s:actionerror/>
-                                            <TD style="HEIGHT: 28px" width=80>登 录 名：</TD>
-                                            <TD style="HEIGHT: 28px" width=150><INPUT id=txtName
-                                                                                      style="WIDTH: 130px"
-                                                                                      name="userCode"></TD>
+                                            <TD style="HEIGHT: 28px" width=80> 用户账号：</TD>
+                                            <TD style="HEIGHT: 28px" width=150>
+                                                <INPUT id=txtName
+                                                       style="WIDTH: 130px" name="userCode">
+                                            </TD>
                                             <TD style="HEIGHT: 28px" width=370><SPAN
                                                     id=RequiredFieldValidator3
                                                     style="FONT-WEIGHT: bold; VISIBILITY: hidden; COLOR: white">请输入登录名</SPAN>
@@ -74,18 +63,28 @@
                                         </TR>
                                         <TR>
                                             <TD style="HEIGHT: 28px">登录密码：</TD>
-                                            <TD style="HEIGHT: 28px"><INPUT id=txtPwd style="WIDTH: 130px"
-                                                                            type=password name="userPassword"></TD>
+                                            <TD style="HEIGHT: 28px">
+                                                <INPUT id=txtPwd style="WIDTH: 130px"
+                                                       type=password name="userPassword">
+                                            </TD>
                                             <TD style="HEIGHT: 28px"><SPAN id=RequiredFieldValidator4
                                                                            style="FONT-WEIGHT: bold; VISIBILITY: hidden; COLOR: white">请输入密码</SPAN>
                                             </TD>
                                         </TR>
+
                                         <TR>
-                                            <TD style="HEIGHT: 28px">验证码：</TD>
-                                            <TD style="HEIGHT: 28px"><INPUT id=txtcode
-                                                                            style="WIDTH: 130px" name=txtcode></TD>
-                                            <TD style="HEIGHT: 28px">&nbsp;</TD>
+                                            <TD style="HEIGHT: 28px" width=80> 用户姓名 ：</TD>
+                                            <TD style="HEIGHT: 28px" width=150>
+                                                <INPUT id=txtName
+                                                       style="WIDTH: 130px" name="userName">
+                                            </TD>
+                                            <TD style="HEIGHT: 28px" width=370><SPAN
+                                                    id=RequiredFieldValidator3
+                                                    style="FONT-WEIGHT: bold; VISIBILITY: hidden; COLOR: white">请输入登录名</SPAN>
+                                            </TD>
                                         </TR>
+
+
                                         <TR>
                                             <TD style="HEIGHT: 18px"></TD>
                                             <TD style="HEIGHT: 18px"></TD>
@@ -93,15 +92,13 @@
                                         </TR>
                                         <TR>
                                             <TD></TD>
-                                            <TD><INPUT id=btn
+                                            <TD>
+                                                <INPUT id=btn
                                                        style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px"
-                                                       onclick='subForm()'
-                                                       type=image src="images/login_button.gif" name=btn>
-                                            </TD>
-                                            <TD><INPUT id=btnregist
-                                                       style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px"
-                                                       onclick='subFormRegist()'
-                                                       type=image src="images/regist_button.gif" name=btnregist>
+                                                       onclick='document.getElementById("form1").submit();'
+                                                       type=image
+                                                       src="${ pageContext.request.contextPath }/images/regist_button.gif"
+                                                       name=btn>
                                             </TD>
                                         </TR>
                                         </TBODY>
@@ -113,7 +110,7 @@
                     </TD>
                 </TR>
                 <TR>
-                    <TD><IMG src="images/login_3.jpg"
+                    <TD><IMG src="${ pageContext.request.contextPath }/images/login_3.jpg"
                              border=0></TD>
                 </TR>
                 </TBODY>

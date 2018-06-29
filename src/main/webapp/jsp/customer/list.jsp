@@ -1,16 +1,15 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="/struts-tags" prefix="s"%>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <TITLE>客户列表</TITLE> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<LINK href="/css/Style.css" type=text/css rel=stylesheet>
-<LINK href="/css/Manage.css" type=text/css
+    <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
+    <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
-<script type="text/javascript" src="/js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
 <SCRIPT language=javascript>
 	function to_page(page){
 		if(page){
@@ -25,26 +24,26 @@
 </HEAD>
 <BODY>
 	<FORM id="customerForm" name="customerForm"
-		action="/customerServlet?method=list"
-		method=post>
+          action="${pageContext.request.contextPath }/customerServlet?method=list"
+          method=post>
 		
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
-					<TD width=15><IMG src="/images/new_019.jpg"
-						border=0></TD>
-					<TD width="100%" background="/images/new_020.jpg"
-						height=20></TD>
-					<TD width=15><IMG src="/images/new_021.jpg"
-						border=0></TD>
+                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_019.jpg"
+                                      border=0></TD>
+                    <TD width="100%" background="${pageContext.request.contextPath }/images/new_020.jpg"
+                        height=20></TD>
+                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_021.jpg"
+                                      border=0></TD>
 				</TR>
 			</TBODY>
 		</TABLE>
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
-					<TD width=15 background=/images/new_022.jpg><IMG
-						src="/images/new_022.jpg" border=0></TD>
+                    <TD width=15 background=${pageContext.request.contextPath }/images/new_022.jpg><IMG
+                            src="${pageContext.request.contextPath }/images/new_022.jpg" border=0></TD>
 					<TD vAlign=top width="100%" bgColor=#ffffff>
 						<TABLE cellSpacing=0 cellPadding=5 width="100%" border=0>
 							<TR>
@@ -85,28 +84,24 @@
 													<TD>客户名称</TD>
 													<TD>客户级别</TD>
 													<TD>客户来源</TD>
-													<TD>联系人</TD>
 													<TD>电话</TD>
 													<TD>手机</TD>
 													<TD>操作</TD>
 												</TR>
 												<s:iterator value="list">
-													<TR
-															style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-
-														<TD>${cust_name }</TD>
-														<TD>${cust_level }</TD>
-														<TD>${cust_source }</TD>
-														<TD>${cust_industry }</TD>
-														<TD>${cust_phone }</TD>
-														<TD>${cust_mobile }</TD>
-														<TD>
-															<a href="/customerServlet?method=edit&custId=${cust_id}">修改</a>
-															&nbsp;&nbsp;
-															<a href="/customerServlet?method=delete&custId=${cust_id}">删除</a>
-														</TD>
-													</TR>
-
+                                                    <TR
+                                                            style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
+                                                        <TD><s:property value="cust_name"/></TD>
+                                                        <TD><s:property value="cust_level"/></TD>
+                                                        <TD><s:property value="cust_source"/></TD>
+                                                        <TD><s:property value="cust_phone"/></TD>
+                                                        <TD><s:property value="cust_mobile"/></TD>
+                                                        <TD>
+                                                            <a href="${pageContext.request.contextPath }/customerServlet?method=edit&custId=${customer.cust_id}">修改</a>
+                                                            &nbsp;&nbsp;
+                                                            <a href="${pageContext.request.contextPath }/customerServlet?method=delete&custId=${customer.cust_id}">删除</a>
+                                                        </TD>
+                                                    </TR>
 												</s:iterator>
 
 											</TBODY>
@@ -140,19 +135,19 @@
 							</TBODY>
 						</TABLE>
 					</TD>
-					<TD width=15 background="/images/new_023.jpg"><IMG
-						src="/images/new_023.jpg" border=0></TD>
+                    <TD width=15 background="${pageContext.request.contextPath }/images/new_023.jpg"><IMG
+                            src="${pageContext.request.contextPath }/images/new_023.jpg" border=0></TD>
 				</TR>
 			</TBODY>
 		</TABLE>
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
-					<TD width=15><IMG src="/images/new_024.jpg"
-						border=0></TD>
+                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_024.jpg"
+                                      border=0></TD>
 					<TD align=middle width="100%"
-						background="/images/new_025.jpg" height=15></TD>
-					<TD width=15><IMG src="/images/new_026.jpg"
+                        background="${pageContext.request.contextPath }/images/new_025.jpg" height=15></TD>
+                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_026.jpg"
 						border=0></TD>
 				</TR>
 			</TBODY>

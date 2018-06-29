@@ -2,14 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd
-	http://www.springframework.org/schema/aop
-	http://www.springframework.org/schema/aop/spring-aop.xsd
+
+
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 
@@ -35,15 +34,32 @@
     <bean id="customerService" class="com.ssh.service.impl.CustomerServiceImpl">
         <property name="customerDao" ref="customerDao"/>
     </bean>
-
+    <bean id="userService" class="com.ssh.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean id="baseDictService" class="com.ssh.service.impl.BaseDictServiceImpl">
+        <property name="baseDictDao" ref="baseDictDao"/>
+    </bean>
     <!-- 配置DAO -->
     <bean id="customerDao" class="com.ssh.dao.impl.CustomerDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userDao" class="com.ssh.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="baseDictDao" class="com.ssh.dao.impl.BaseDictDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- 配置Action -->
     <bean id="customerAction" class="com.ssh.web.action.CustomerAction" scope="prototype">
         <property name="customerService" ref="customerService"/>
+    </bean>
+    <bean id="userAction" class="com.ssh.web.action.UserAction" scope="prototype">
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean id="baseDictAction" class="com.ssh.web.action.BaseDictAction" scope="prototype">
+        <property name="baseDictService" ref="baseDictService"/>
     </bean>
 
     <!-- 配置生成SessionFactory -->
@@ -56,6 +72,8 @@
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/crm</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>
         </property>
 
