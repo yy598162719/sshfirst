@@ -3,7 +3,7 @@ package com.ssh.domain;
 import java.util.List;
 
 public class PageBean<T> {
-    private Integer currPage; 	// 当前页
+    private Integer currPage; 	// 当前页数
     private Integer pageSize; 	// 每页显示的记录数
     private Integer totalCount; // 总记录数
     private Integer totalPage; 	// 总页数
