@@ -1,7 +1,9 @@
 package com.ssh.domain;
 
-import java.util.List;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+@Component
 public class PageBean<T> {
     private Integer currPage; 	// 当前页数
     private Integer pageSize; 	// 每页显示的记录数

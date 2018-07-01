@@ -1,8 +1,11 @@
 package com.ssh.domain;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 字典表的实体
  */
+@Component
 public class BaseDict {
     private String dict_id;
     private String dict_type_code;

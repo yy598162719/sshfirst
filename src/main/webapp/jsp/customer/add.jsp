@@ -43,7 +43,7 @@
 <BODY>
 <FORM id=form1 name=form1
 	  action="${pageContext.request.contextPath }/customer_add.action"
-	  method=post>
+	  method=post enctype="multipart/form-data">
 
 
 	<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
@@ -125,6 +125,12 @@
 							<select id="cust_source" name="baseDictSource.dict_id">
 								<option value="">-请选择-</option>
 							</select>
+						</td>
+					</TR>
+					<TR>
+						<td>客户图片：</td>
+						<td colspan="3">
+							<input type="file" name="upload"/>
 						</td>
 					</TR>
 

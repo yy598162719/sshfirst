@@ -4,14 +4,15 @@ import com.ssh.dao.BaseDictDao;
 import com.ssh.domain.BaseDict;
 import com.ssh.service.BaseDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 public class BaseDictServiceImpl implements BaseDictService {
     @Autowired
     private BaseDictDao baseDictDao;
 
-    public void setBaseDictDao(com.ssh.dao.impl.BaseDictDaoImpl baseDictDao) {
+    public void setBaseDictDao(BaseDictDao baseDictDao) {
     }
 
     @Override

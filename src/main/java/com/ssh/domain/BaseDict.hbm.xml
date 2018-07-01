@@ -7,7 +7,7 @@
     <class name="com.ssh.domain.BaseDict" table="base_dict">
         <!-- 建立oid与表的主键映射 -->
         <id name="dict_id" column="dict_id">
-            <generator class="native"/>
+            <generator class="assigned"/>
         </id>
         <!-- 建立属性与表字段映射 -->
         <property name="dict_type_code"/>

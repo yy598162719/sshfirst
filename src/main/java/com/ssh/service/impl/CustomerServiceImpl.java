@@ -35,16 +35,37 @@ public class CustomerServiceImpl implements CustomerService {
         pageBean.setTotalCount(totalCount);
         // 设置总页数：
         double tc = totalCount;
-        Double num = Math.ceil(tc /pageSize);
+        Double num = Math.ceil(tc / pageSize);
         pageBean.setTotalPage(num.intValue());
         // 设置每页显示数据的集合:
         // 设置当前页从第几条开始检索。
         Integer begin = (currPage - 1) * pageSize;
-        List<Customer> list = customerDao.findByPage(detachedCriteria,begin,pageSize);
+        List<Customer> list = customerDao.findByPage(detachedCriteria, begin, pageSize);
         pageBean.setList(list);
         return pageBean;
     }
 
-    public void setCustomerDao(CustomerDaoImpl customerDao) {
+    @Override
+    public Customer findById(Long cust_id) {
+        return customerDao.findById(cust_id);
+
+    }
+
+    @Override
+    public void delete(Customer customer) {
+        customerDao.delete(customer);
+    }
+
+    @Override
+    public void edit(Customer customer) {
+        customerDao.edit(customer);
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return customerDao.findAll();
+    }
+
+    public void setCustomerDao(CustomerDao customerDao) {
     }
 }

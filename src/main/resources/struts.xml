@@ -31,8 +31,19 @@
         <!--2.3以后通过这种方法布置通配符 strict-method-invocation="false" 关闭-->
         <action name="customer_*" class="customerAction" method="{1}">
             <result name="saveUI">/jsp/customer/add.jsp</result>
-            <result name="success">/jsp/customer/add.jsp</result>
             <result name="findByPage">/jsp/customer/list.jsp</result>
+            <result name="updateUI">/jsp/customer/edit.jsp</result>
+            <result name="addSuccess" type="redirectAction">customer_findByPage.action</result>
+            <result name="deleteSuccess" type="redirectAction">customer_findByPage.action</result>
+            <result name="updateSuccess" type="redirectAction">customer_findByPage.action</result>
+
+            <interceptor-ref name="defaultStack">
+                <!-- 限制文件上传大小30k*1024bate-->
+                <param name="fileUpload.maximumSize">30720</param>
+                <!-- 限制文件的拓展名 -->
+                <param name="fileUpload.allowedExtensions">.jpg</param>
+            </interceptor-ref>
+
         </action>
         <action name="user_*" class="userAction" method="{1}">
             <result name="regist">/regist.jsp</result>
@@ -41,7 +52,11 @@
             <result name="success" type="redirect">/index.jsp</result>
         </action>
         <action name="baseDict_*" class="baseDictAction" method="{1}">
-
+        </action>
+        <action name="linkMan_*" class="linkManAction" method="{1}">
+            <result name="findByPage">/jsp/linkman/list.jsp</result>
+            <result name="saveUI">/jsp/linkman/add.jsp</result>
+            <result name="saveSuccess" type="redirectAction">linkMan_findByPage.action</result>
         </action>
     </package>
 </struts>

@@ -40,6 +40,9 @@
     <bean id="baseDictService" class="com.ssh.service.impl.BaseDictServiceImpl">
         <property name="baseDictDao" ref="baseDictDao"/>
     </bean>
+    <bean id="linkManService" class="com.ssh.service.impl.LinkManServiceImpl">
+        <property name="linkManDao" ref="linkManDao"/>
+    </bean>
     <!-- 配置DAO -->
     <bean id="customerDao" class="com.ssh.dao.impl.CustomerDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
@@ -48,6 +51,9 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     <bean id="baseDictDao" class="com.ssh.dao.impl.BaseDictDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="linkManDao" class="com.ssh.dao.impl.LinkManDaoImpl">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
@@ -60,6 +66,8 @@
     </bean>
     <bean id="baseDictAction" class="com.ssh.web.action.BaseDictAction" scope="prototype">
         <property name="baseDictService" ref="baseDictService"/>
+    </bean>
+    <bean id="linkManAction" class="com.ssh.web.action.LinkManAction" scope="prototype">
     </bean>
 
     <!-- 配置生成SessionFactory -->
@@ -90,7 +98,6 @@
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
-
     </bean>
 
 </beans>

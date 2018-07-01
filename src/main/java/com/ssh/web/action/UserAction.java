@@ -13,7 +13,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
     private UserService userService;
     // 模型驱动使用的对象
     @Autowired
-    private User user = new User();
+    private User user;
 
     @Override
     public User getModel() {
