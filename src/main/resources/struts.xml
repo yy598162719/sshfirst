@@ -1,70 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-	"http://struts.apache.org/dtds/struts-2.3.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-	<!-- 常量 -->
-	<constant name="struts.action.extension" value="action"></constant>
-	<constant name="struts.devMode" value="true"></constant>
-	<constant name="struts.ui.theme" value="simple"></constant>
-	<!-- 设置上传总文件（多文件）的大小 -->
-	<constant name="struts.multipart.maxSize" value="10485760"></constant>
-	
-	<!-- 处理url的转发 -->
-	<package name="crm" extends="struts-default" namespace="/" strict-method-invocation="false">
-		<global-results>
-			<result name="input">/error.jsp</result>
-		</global-results>
-		<!-- 用户登录 -->
-		<action name="user_*" class="userAction" method="{1}">
-			<result name="regist">/regist.jsp</result>
-			<result name="registSave" type="redirect">/login.jsp</result>
-			<result name="loginSuccess" type="redirect">/index.jsp</result>
-			<result name="login">/login.jsp</result>
-		</action>
-		
-		<!-- 客户管理 -->
-		<action name="customer_*" class="customerAction" method="{1}">
-			<result name="saveUI">/jsp/customer/add.jsp</result>
-			<result name="save" type="redirectAction">customer_findByPage.action</result>
-			<result name="findByPage">/jsp/customer/list.jsp</result>
-			<result name="deleteSuccess" type="redirectAction">customer_findByPage.action</result>
-			<result name="updateUI">/jsp/customer/edit.jsp</result>
-			<result name="updateSuccess" type="redirectAction">customer_findByPage.action</result>
-			<result name="download" type="stream">
-				<param name="contentType">${#request.contentType}</param>
-				<!-- 关联值栈中输入流的属性名称 -->
-				<param name="inputName">inputStream</param>
-				<param name="contentDisposition">attachment;filename="${#request.fileName}"</param>
-				<param name="bufferSize">1024</param>
-			</result>
-			<!-- 
-				文件上传拦截器，控制单个文件
-				protected Long maximumSize;
-				protected Set<String> allowedTypesSet = Collections.emptySet();
-				protected Set<String> allowedExtensionsSet = Collections.emptySet();
-			 -->
-			<interceptor-ref name="defaultStack">
-				<!-- 控制单个文件的上传大小,2M -->
-				<param name="fileUpload.maximumSize">2097152</param>
-				<!-- 控制单个文件的文件的后缀 -->
-				<param name="fileUpload.allowedExtensions">.jpg</param>
-			</interceptor-ref>
-		</action>
-		
-		<!-- 数据字典 -->
-		<action name="baseDict_*" class="baseDictAction" method="{1}">
-			
-		</action>
-		
-		<!-- 联系人管理 -->
-		<action name="linkMan_*" class="linkManAction" method="{1}">
-			<result name="findByPage">/jsp/linkman/list.jsp</result>
-			<result name="saveUI">/jsp/linkman/add.jsp</result>
-			<result name="saveSuccess" type="redirectAction">linkMan_findByPage.action</result>
-			<result name="editSuccess">/jsp/linkman/edit.jsp</result>
-			<result name="updateSuccess" type="redirectAction">linkMan_findByPage.action</result>
-			<result name="deleteSuccess" type="redirectAction">linkMan_findByPage.action</result>
-		</action>
-	</package>
+    <!-- 常量 -->
+    <constant name="struts.action.extension" value="action"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <constant name="struts.configuration.xml.reload" value="true"/>
+    <!-- 设置上传总文件（多文件）的大小 -->
+    <constant name="struts.multipart.maxSize" value="10485760"></constant>
+
+    <!-- 处理url的转发 -->
+    <package name="crm" extends="json-default" namespace="/" strict-method-invocation="false">
+
+        <!-- 定义拦截器 -->
+        <interceptors>
+            <interceptor name="privilegeInterceptor" class="com.itheima.crm.web.action.interceptor.JurisdictionInterceptor"/>
+        </interceptors>
+
+        <!--全局响应结果-->
+        <global-results>
+            <result name="input">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="successJson" type="json">
+                <param name="excludeProperties">linkMans,baseDictSource,baseDictLevel,baseDictIndustry</param>
+            </result>
+
+        </global-results>
+
+        <!-- 用户登录 -->
+        <action name="user_*" class="userAction" method="{1}">
+            <result name="regist">/regist.jsp</result>
+            <result name="registSave" type="redirect">/login.jsp</result>
+            <result name="loginSuccess" type="redirect">/index.jsp</result>
+            <interceptor-ref name="privilegeInterceptor">
+                <param name="excludeMethods">regist,login,registSave</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <!-- 客户管理 -->
+        <action name="customer_*" class="customerAction" method="{1}">
+            <result name="saveUI">/jsp/customer/add.jsp</result>
+            <result name="save" type="redirectAction">customer_findByPage.action</result>
+            <result name="findByPage">/jsp/customer/list.jsp</result>
+            <result name="deleteSuccess" type="redirectAction">customer_findByPage.action</result>
+            <result name="updateUI">/jsp/customer/edit.jsp</result>
+            <result name="updateSuccess" type="redirectAction">customer_findByPage.action</result>
+            <result name="download" type="stream">
+                <param name="contentType">${#request.contentType}</param>
+                <!-- 关联值栈中输入流的属性名称 -->
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${#request.fileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <!--
+                文件上传拦截器，控制单个文件
+                protected Long maximumSize;
+                protected Set<String> allowedTypesSet = Collections.emptySet();
+                protected Set<String> allowedExtensionsSet = Collections.emptySet();
+             -->
+
+            <interceptor-ref name="privilegeInterceptor"/>
+            <interceptor-ref name="defaultStack">
+                <!-- 控制单个文件的上传大小,2M -->
+                <param name="fileUpload.maximumSize">2097152</param>
+                <!-- 控制单个文件的文件的后缀 -->
+                <param name="fileUpload.allowedExtensions">.jpg</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- 数据字典 -->
+        <action name="baseDict_*" class="baseDictAction" method="{1}">
+            <interceptor-ref name="privilegeInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <!-- 联系人管理 -->
+        <action name="linkMan_*" class="linkManAction" method="{1}">
+            <result name="findByPage">/jsp/linkman/list.jsp</result>
+            <result name="saveUI">/jsp/linkman/add.jsp</result>
+            <result name="saveSuccess" type="redirectAction">linkMan_findByPage.action</result>
+            <result name="editSuccess">/jsp/linkman/edit.jsp</result>
+            <result name="updateSuccess" type="redirectAction">linkMan_findByPage.action</result>
+            <result name="deleteSuccess" type="redirectAction">linkMan_findByPage.action</result>
+
+            <interceptor-ref name="privilegeInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+        <!--客户拜访-->
+        <action name="saleVisit_*" class="saleVisitAction" method="{1}">
+            <result name="findByPage">/jsp/salevisit/list.jsp</result>
+            <result name="saveUI">/jsp/salevisit/add.jsp</result>
+            <result name="saveSuccess" type="redirectAction">saleVisit_findByPage.action</result>
+
+            <interceptor-ref name="privilegeInterceptor"/>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+    </package>
 </struts>

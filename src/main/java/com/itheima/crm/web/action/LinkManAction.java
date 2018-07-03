@@ -15,14 +15,17 @@ import com.itheima.crm.service.LinkManService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+
 @Controller
+@Scope("prototype")
 public class LinkManAction extends BaseAction<LinkMan> {
-@Autowired
-    LinkManService linkManService;
-@Autowired
+    @Autowired
+    private LinkManService linkManService;
+    @Autowired
     private CustomerService customerService;
 
     // 客户查询（分页查询）
@@ -68,11 +71,12 @@ public class LinkManAction extends BaseAction<LinkMan> {
         linkManService.save(model);
         return "saveSuccess";
     }
+
     /**
      * 修改联系人回显
      */
-    public String edit(){
-        model=linkManService.findById(model.getLkm_id());
+    public String edit() {
+        model = linkManService.findById(model.getLkm_id());
         List<Customer> list = customerService.findAll();
         // 将数据压入值栈：
         ActionContext.getContext().getValueStack().push(model);
@@ -82,16 +86,18 @@ public class LinkManAction extends BaseAction<LinkMan> {
 
     /**
      * 修改联系人
+     *
      * @return
      */
-    public String update(){
+    public String update() {
         linkManService.update(model);
         return "updateSuccess";
     }
+
     /**
      * 删除联系人
      */
-    public String delete(){
+    public String delete() {
         model = linkManService.findById(model.getLkm_id());
         linkManService.delete(model);
         return "deleteSuccess";

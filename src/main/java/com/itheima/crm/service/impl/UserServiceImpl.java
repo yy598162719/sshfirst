@@ -7,7 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itheima.crm.dao.UserDao;
 import com.itheima.crm.domain.User;
 import com.itheima.crm.service.UserService;
-import com.itheima.crm.utils.MD5Utils;
+import com.itheima.crm.util.MD5Utils;
+
+import java.util.List;
 
 @Transactional
 @Service
@@ -28,5 +30,10 @@ public class UserServiceImpl implements UserService {
 		// 对登录的密码，完成Md5的加密
 		user.setUser_password(MD5Utils.md5(user.getUser_password()));
 		return userDao.findUserByUserCodeAndPassword(user);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userDao.findAll();
 	}
 }

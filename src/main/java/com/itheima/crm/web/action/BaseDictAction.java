@@ -9,12 +9,14 @@ import org.apache.struts2.ServletActionContext;
 import com.itheima.crm.domain.BaseDict;
 import com.itheima.crm.service.BaseDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@Scope("prototype")
 public class BaseDictAction extends BaseAction<BaseDict>{
 	@Autowired
-	BaseDictService baseDictService;
+	private BaseDictService baseDictService;
 
 	// 使用ajax，使用数据字典的编号，查询数据字典，返回对应字典编号的集合列表
 	public String findByDictTypeCode() throws IOException{

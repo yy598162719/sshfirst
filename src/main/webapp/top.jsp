@@ -59,13 +59,6 @@ P {
 								<TR>
 									<TD height=35 align="right">
 										当前用户：<s:property value="#session.existUser.user_name"/>
-										--
-										<s:if test="#session.existUser.user_state==1">
-											可用
-										</s:if>
-										<s:else>
-											不可用
-										</s:else>
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<A href="#" target=_top><FONT color=red>修改密码</FONT></A>
 										&nbsp;&nbsp;&nbsp;&nbsp;

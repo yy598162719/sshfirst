@@ -1,4 +1,4 @@
-package com.itheima.crm.utils;
+package com.itheima.crm.util;
 
 import java.util.UUID;
 

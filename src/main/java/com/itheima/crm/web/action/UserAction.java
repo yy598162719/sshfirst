@@ -1,5 +1,7 @@
 package com.itheima.crm.web.action;
 
+import com.alibaba.fastjson.JSONArray;
+import com.itheima.crm.domain.Customer;
 import org.apache.struts2.ServletActionContext;
 
 import com.itheima.crm.domain.User;
@@ -7,12 +9,17 @@ import com.itheima.crm.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
+import java.util.List;
+
 @Controller
+@Scope("prototype")
 public class UserAction extends BaseAction<User>{
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	// 跳转到注册页面
 	public String regist(){
@@ -46,5 +53,16 @@ public class UserAction extends BaseAction<User>{
 			}
 		}
 		return "loginSuccess";
+	}
+	/**
+	 * 查询所有业务员名字
+	 * @return
+	 */
+	public String findAllUserName() throws IOException {
+		// 调用业务层:
+		List<User> list = userService.findAll();
+		// 将list放置到栈顶
+		ServletActionContext.getContext().getValueStack().push(list);
+		return "successJson";
 	}
 }
