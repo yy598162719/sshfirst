@@ -1,103 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context.xsd
-
-
-	http://www.springframework.org/schema/tx
-	http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-    <!--开启包扫描-->
-    <context:component-scan base-package="com.ssh"/>
-
-    <!-- 引入外部属性文件 -->
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!--包扫描-->
+	<context:component-scan base-package="com.itheima.crm"/>
+    <!-- 从属性文件加载连接池的配置 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
-
-    <!-- 配置C3P0连接池 -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="${jdbc.driverClass}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="user" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="minPoolSize" value="5"></property>
-        <property name="maxPoolSize" value="20"></property>
-        <property name="checkoutTimeout" value="120"></property>
-        <property name="idleConnectionTestPeriod" value="3000"></property>
-    </bean>
-
-    <!-- 配置Service -->
-    <bean id="customerService" class="com.ssh.service.impl.CustomerServiceImpl">
-        <property name="customerDao" ref="customerDao"/>
-    </bean>
-    <bean id="userService" class="com.ssh.service.impl.UserServiceImpl">
-        <property name="userDao" ref="userDao"/>
-    </bean>
-    <bean id="baseDictService" class="com.ssh.service.impl.BaseDictServiceImpl">
-        <property name="baseDictDao" ref="baseDictDao"/>
-    </bean>
-    <bean id="linkManService" class="com.ssh.service.impl.LinkManServiceImpl">
-        <property name="linkManDao" ref="linkManDao"/>
-    </bean>
-    <!-- 配置DAO -->
-    <bean id="customerDao" class="com.ssh.dao.impl.CustomerDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean id="userDao" class="com.ssh.dao.impl.UserDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean id="baseDictDao" class="com.ssh.dao.impl.BaseDictDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean id="linkManDao" class="com.ssh.dao.impl.LinkManDaoImpl">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <!-- 配置Action -->
-    <bean id="customerAction" class="com.ssh.web.action.CustomerAction" scope="prototype">
-        <property name="customerService" ref="customerService"/>
-    </bean>
-    <bean id="userAction" class="com.ssh.web.action.UserAction" scope="prototype">
-        <property name="userService" ref="userService"/>
-    </bean>
-    <bean id="baseDictAction" class="com.ssh.web.action.BaseDictAction" scope="prototype">
-        <property name="baseDictService" ref="baseDictService"/>
-    </bean>
-    <bean id="linkManAction" class="com.ssh.web.action.LinkManAction" scope="prototype">
-    </bean>
-
-    <!-- 配置生成SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <!-- 配置Hibernate的属性 -->
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.show_sql">true</prop>
-                <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/crm</prop>
-                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-            </props>
-        </property>
-
-        <!-- 加载映射文件 -->
-        <property name="mappingDirectoryLocations">
-            <list>
-                <value>classpath:com/ssh/domain</value>
-            </list>
-        </property>
-    </bean>
-
-    <!-- 开启注解事务 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
+    <!-- spring的c3p0连接池 -->
+    <!-- 创建连接池  配置连接池的属性值 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClass}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+	
+	<!-- spring整合hibernate，创建SessionFactory，这是spring整合hibernate的 核心 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- 去掉hibernate.cfg.xml的配置，让spring完全整合hibernate（推荐） -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 添加hibernate的其他配置 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>		
+		</property>
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:com/itheima/crm/domain</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 在Dao中使用模板 ，将hibenrateTemplate注入给Dao-->
+	<!-- 创建Dao -->
+	<bean id="userDao" class="com.itheima.crm.dao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="customerDao" class="com.itheima.crm.dao.impl.CustomerDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="baseDictDao" class="com.itheima.crm.dao.impl.BaseDictDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<bean id="linkManDao" class="com.itheima.crm.dao.impl.LinkManDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 创建Service -->
+	<bean id="userService" class="com.itheima.crm.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
+	<bean id="customerService" class="com.itheima.crm.service.impl.CustomerServiceImpl">
+		<property name="customerDao" ref="customerDao"/>
+	</bean>
+	<bean id="baseDictService" class="com.itheima.crm.service.impl.BaseDictServiceImpl">
+		<property name="baseDictDao" ref="baseDictDao"/>
+	</bean>
+	<bean id="linkManService" class="com.itheima.crm.service.impl.LinkManServiceImpl">
+		<property name="linkManDao" ref="linkManDao"/>
+	</bean>
+	
+	<!-- 创建Action，一旦将Action由spring创建的时候，一定要将action的创建设置为多例 -->
+	<bean id="userAction" class="com.itheima.crm.web.action.UserAction" scope="prototype">
+		<!--<property name="userService" ref="userService"/>-->
+	</bean>
+	<bean id="customerAction" class="com.itheima.crm.web.action.CustomerAction" scope="prototype">
+		<!--<property name="customerService" ref="customerService"/>-->
+	</bean>
+	<bean id="baseDictAction" class="com.itheima.crm.web.action.BaseDictAction" scope="prototype">
+		<!--<property name="baseDictService" ref="baseDictService"/>-->
+	</bean>
+	<bean id="linkManAction" class="com.itheima.crm.web.action.LinkManAction" scope="prototype">
+		<!--<property name="linkManService" ref="linkManService"/>-->
+		<!--<property name="customerService" ref="customerService"/>-->
+	</bean>
+	
+	<!-- 提供声明式事务处理（XML和注解） -->
+	<!-- 1：创建事务管理器（注入SessionFactory） -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 2：开启事务的注解支持 ，在Service层添加@Transactional-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 </beans>

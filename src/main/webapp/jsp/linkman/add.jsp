@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,16 +47,18 @@
                 </TABLE>
                 <TABLE cellSpacing=0 cellPadding=5 border=0>
                     <tr>
+
                         <td>所属客户：</td>
                         <td colspan="3">
                             <s:select list="list" name="customer.cust_id" headerKey="" headerValue="-请选择-"
-                                      listKey="cust_id" listValue="cust_name"/>
+                                      listValue="cust_name" listKey="cust_id"/>
                         </td>
+
                     </tr>
                     <TR>
                         <td>联系人名称：</td>
                         <td>
-                            <s:textfield name="lkm_name" cssClass="textbox" cssStyle="WIDTH: 180px"/>
+                            <s:textfield name="lkm_name" cssClass="textbox" cssStyle="WIDTH: 180px" />
                         </td>
                         <td>联系人性别：</td>
                         <td>
@@ -70,7 +72,7 @@
                         </td>
                         <td>联系人手机 ：</td>
                         <td>
-                            <s:textfield cssStyle="width:180px" maxlength="50" name="lkm_mobile"/>
+                            <s:textfield cssClass="textbox" cssStyle="width:180px" maxlength="50" name="lkm_mobile"/>
                         </td>
                     </TR>
                     <TR>

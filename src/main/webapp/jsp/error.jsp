@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
-    <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
+<LINK href="${pageContext.request.contextPath }/css/Style.css" type=text/css rel=stylesheet>
+<LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
 	rel=stylesheet>
 
 
@@ -17,12 +17,12 @@
 		<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
-                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_019.jpg"
-                                      border=0></TD>
-                    <TD width="100%" background="${pageContext.request.contextPath }/images/new_020.jpg"
-                        height=20></TD>
-                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_021.jpg"
-                                      border=0></TD>
+					<TD width=15><IMG src="${pageContext.request.contextPath }/images/new_019.jpg"
+						border=0></TD>
+					<TD width="100%" background="${pageContext.request.contextPath }/images/new_020.jpg"
+						height=20></TD>
+					<TD width=15><IMG src="${pageContext.request.contextPath }/images/new_021.jpg"
+						border=0></TD>
 				</TR>
 			</TBODY>
 		</TABLE>
@@ -36,8 +36,8 @@
 						cellspacing="0">
 						<tr>
 							<td align="center" style="font-size: 14px;"><img
-                                    src="${pageContext.request.contextPath }/images/info.png"
-                                    align="middle" height="30" width="30" />
+								src="${pageContext.request.contextPath }/images/info.png"
+								align="middle" height="30" width="30" />
 							    <span style="vertical-align: middle">您的操作失败！</span>	
 							</td>
 						</tr>
@@ -51,11 +51,11 @@
 	<TABLE cellSpacing=0 cellPadding=0 width="98%" border=0>
 			<TBODY>
 				<TR>
-                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_024.jpg"
-                                      border=0></TD>
+					<TD width=15><IMG src="${pageContext.request.contextPath }/images/new_024.jpg"
+						border=0></TD>
 					<TD align=middle width="100%"
-                        background="${pageContext.request.contextPath }/images/new_025.jpg" height=15></TD>
-                    <TD width=15><IMG src="${pageContext.request.contextPath }/images/new_026.jpg"
+						background="${pageContext.request.contextPath }/images/new_025.jpg" height=15></TD>
+					<TD width=15><IMG src="${pageContext.request.contextPath }/images/new_026.jpg"
 						border=0></TD>
 				</TR>
 			</TBODY>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<!-- 建立类与表映射 -->
+	<class name="com.itheima.crm.domain.Customer" table="cst_customer">
+		<!-- 建立oid与表的主键映射 -->
+		<id name="cust_id" column="cust_id">
+			<generator class="native"/>
+		</id>
+		<!-- 建立属性与表字段映射 -->
+		<property name="cust_name"/>
+		<property name="cust_phone"/>
+		<property name="cust_mobile"/>
+		
+		<property name="cust_image"/> 
+		
+		<!-- 完成了多对一的映射 -->
+		<many-to-one name="baseDictSource" class="com.itheima.crm.domain.BaseDict" column="cust_source"></many-to-one>
+		<many-to-one name="baseDictIndustry" class="com.itheima.crm.domain.BaseDict" column="cust_industry"></many-to-one>
+		<many-to-one name="baseDictLevel" class="com.itheima.crm.domain.BaseDict" column="cust_level"></many-to-one>
+		
+		<!-- 
+			// 一的的一端
+			Set<LinkMan> linkMans = new HashSet<>();
+			inverse="true"：由多的一方维护关联关系（外键），多关联一可以操作外键，但是一关联多不能操作外键，即使做了个双向关联，其中一找多是不起作用的
+		 -->
+		<set name="linkMans" inverse="true" cascade="delete">
+			<key column="lkm_cust_id"></key>
+			<one-to-many class="com.itheima.crm.domain.LinkMan"/>
+		</set>
+	</class>
+</hibernate-mapping>
