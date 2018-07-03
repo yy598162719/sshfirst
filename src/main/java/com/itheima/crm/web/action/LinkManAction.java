@@ -15,9 +15,10 @@ import com.itheima.crm.service.LinkManService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
-
+@Controller
 public class LinkManAction extends BaseAction<LinkMan> {
 @Autowired
     LinkManService linkManService;

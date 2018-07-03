@@ -19,7 +19,9 @@ import com.itheima.crm.utils.UploadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class CustomerAction extends BaseAction<Customer>{
 @Autowired
 	CustomerService customerService;

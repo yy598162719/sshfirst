@@ -7,7 +7,9 @@ import com.itheima.crm.service.UserService;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class UserAction extends BaseAction<User>{
 	@Autowired
 	UserService userService;

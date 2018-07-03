@@ -47,49 +47,7 @@
 		</property>
 	</bean>
 	
-	<!-- 在Dao中使用模板 ，将hibenrateTemplate注入给Dao-->
-	<!-- 创建Dao -->
-	<bean id="userDao" class="com.itheima.crm.dao.impl.UserDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<bean id="customerDao" class="com.itheima.crm.dao.impl.CustomerDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<bean id="baseDictDao" class="com.itheima.crm.dao.impl.BaseDictDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<bean id="linkManDao" class="com.itheima.crm.dao.impl.LinkManDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<!-- 创建Service -->
-	<bean id="userService" class="com.itheima.crm.service.impl.UserServiceImpl">
-		<property name="userDao" ref="userDao"/>
-	</bean>
-	<bean id="customerService" class="com.itheima.crm.service.impl.CustomerServiceImpl">
-		<property name="customerDao" ref="customerDao"/>
-	</bean>
-	<bean id="baseDictService" class="com.itheima.crm.service.impl.BaseDictServiceImpl">
-		<property name="baseDictDao" ref="baseDictDao"/>
-	</bean>
-	<bean id="linkManService" class="com.itheima.crm.service.impl.LinkManServiceImpl">
-		<property name="linkManDao" ref="linkManDao"/>
-	</bean>
-	
-	<!-- 创建Action，一旦将Action由spring创建的时候，一定要将action的创建设置为多例 -->
-	<bean id="userAction" class="com.itheima.crm.web.action.UserAction" scope="prototype">
-		<!--<property name="userService" ref="userService"/>-->
-	</bean>
-	<bean id="customerAction" class="com.itheima.crm.web.action.CustomerAction" scope="prototype">
-		<!--<property name="customerService" ref="customerService"/>-->
-	</bean>
-	<bean id="baseDictAction" class="com.itheima.crm.web.action.BaseDictAction" scope="prototype">
-		<!--<property name="baseDictService" ref="baseDictService"/>-->
-	</bean>
-	<bean id="linkManAction" class="com.itheima.crm.web.action.LinkManAction" scope="prototype">
-		<!--<property name="linkManService" ref="linkManService"/>-->
-		<!--<property name="customerService" ref="customerService"/>-->
-	</bean>
-	
+
 	<!-- 提供声明式事务处理（XML和注解） -->
 	<!-- 1：创建事务管理器（注入SessionFactory） -->
 	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

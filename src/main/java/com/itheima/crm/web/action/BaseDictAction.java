@@ -9,7 +9,9 @@ import org.apache.struts2.ServletActionContext;
 import com.itheima.crm.domain.BaseDict;
 import com.itheima.crm.service.BaseDictService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class BaseDictAction extends BaseAction<BaseDict>{
 	@Autowired
 	BaseDictService baseDictService;

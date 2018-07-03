@@ -3,6 +3,7 @@ package com.itheima.crm.service.impl;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +16,9 @@ import com.itheima.crm.service.LinkManService;
 @Transactional
 @Service
 public class LinkManServiceImpl implements LinkManService {
-
+@Autowired
 	private LinkManDao linkManDao;
 
-	public void setLinkManDao(LinkManDao linkManDao) {
-		this.linkManDao = linkManDao;
-	}
-	
 	@Override
 	public PageBean<LinkMan> findByPage(DetachedCriteria criteria, Integer currPage, Integer pageSize) {
 		// 响应的结果PageBean，Service就是要完成对数据的封装
