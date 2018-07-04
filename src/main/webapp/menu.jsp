@@ -137,7 +137,7 @@
                                 </TR>
                                 <TR>
                                     <TD class=menuSmall><A class=style2
-                                                           href="/customer_findByPage.action"
+                                                           href="${pageContext.request.contextPath }/customer_findByPage.action"
                                                            target=main>－ 客户列表</A></TD>
                                 </TR>
 
@@ -159,11 +159,12 @@
                                    cellPadding=2 width=155 align=center border=0>
                                 <TBODY>
                                 <TR>
-                                    <TD class=menuSmall><A class=style2 href="linkMan_saveUI.action" target=main>
-                                        －新增联系人</A></TD>
+                                    <TD class=menuSmall><A class=style2 href="/linkMan_saveUI.action"
+                                                           target=main>－ 新增联系人</A></TD>
                                 </TR>
                                 <TR>
-                                    <TD class=menuSmall><A class=style2 href="linkMan_findByPage.action"
+                                    <TD class=menuSmall><A class=style2
+                                                           href="${pageContext.request.contextPath }/linkMan_findByPage.action"
                                                            target=main>－联系人列表</A></TD>
                                 </TR>
 
@@ -185,13 +186,16 @@
                                    cellPadding=2 width=155 align=center border=0>
                                 <TBODY>
                                 <TR>
-                                    <TD class=menuSmall><A class=style2 href="#"
+                                    <TD class=menuSmall><A class=style2
+                                                           href="${pageContext.request.contextPath }/saleVisit_saveUI.action"
                                                            target=main>－新增客户拜访</A></TD>
                                 </TR>
                                 <TR>
-                                    <TD class=menuSmall><A class=style2 href="#"
-                                                           target=main>－客户拜访列表</A></TD>
-                                </TR>
+                                    <TD class=menuSmall>
+                                        <A class=style2
+                                           href="${pageContext.request.contextPath }/saleVisit_findByPage.action"
+                                           target=main>－客户拜访列表</A>
+                                    </TD>
 
                                 </TBODY>
                             </TABLE>

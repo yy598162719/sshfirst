@@ -10,7 +10,11 @@
     <LINK href="${pageContext.request.contextPath }/css/Manage.css" type=text/css
           rel=stylesheet>
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
-
+    <!-- 日期插件，使用jquery -->
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery/jquery-1.4.2.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/js/jquery/jquery.datepick.css" type="text/css">
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery/jquery.datepick.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery/jquery.datepick-zh-CN.js"></script>
     <SCRIPT language=javascript>
         function to_page(page) {
             if (page) {
@@ -18,6 +22,11 @@
             }
             document.customerForm.submit();
         }
+        $(function(){
+            // 使用日期控件:
+            $('#visit_time').datepick({dateFormat: 'yy-mm-dd'});
+            $('#visit_end_time').datepick({dateFormat: 'yy-mm-dd'});
+        });
     </SCRIPT>
 
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
@@ -65,14 +74,14 @@
                                     <TD>
                                         <INPUT class=textbox id="visit_time"
                                                style="WIDTH: 80px" maxLength=50 name="visit_time" readonly="readonly"
-                                               value="">
+                                               value="<s:date name="model.visit_time" format="yyyy-MM-dd"/>">
                                     </TD>
                                     <TD>至</TD>
                                     <TD>
                                         <INPUT class=textbox id="visit_end_time"
-                                               style="WIDTH: 80px" maxLength=50 name="visit_end_time"
+                                               style="WIDTH: 80px" maxLength=50 name="visit_nexttime"
                                                readonly="readonly"
-                                               value="">
+                                               value="<s:date name="model.visit_nexttime" format="yyyy-MM-dd"/>">
                                     </TD>
                                     <TD><INPUT class=button id=sButton2 type=submit value=" 筛选 " name=sButton2></TD>
                                 </TR>
@@ -97,21 +106,22 @@
                                     <TD>下次拜访时间</TD>
                                     <TD>操作</TD>
                                 </TR>
+                                <s:iterator value="list">
+                                    <TR style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
+                                        <TD><s:property value="user.user_name"/></TD>
+                                        <TD><s:property value="customer.cust_name"/></TD>
+                                        <TD><s:date name="visit_time" format="yyyy-MM-dd"/></TD>
+                                        <TD><s:property value="visit_addr"/></TD>
+                                        <TD><s:property value="visit_detail"/></TD>
+                                        <TD><s:date name="visit_nexttime" format="yyyy-MM-dd"/></TD>
+                                        <TD>
+                                            <a href="${pageContext.request.contextPath }/saleVisit_edit.action?visit_id=<s:property value="visit_id"/>">修改</a>
+                                            &nbsp;&nbsp;
+                                            <a href="${pageContext.request.contextPath }/saleVisit_delete.action?visit_id=<s:property value="visit_id"/>">删除</a>
+                                        </TD>
+                                    </TR>
+                                </s:iterator>
 
-                                <TR
-                                        style="FONT-WEIGHT: normal; FONT-STYLE: normal; BACKGROUND-COLOR: white; TEXT-DECORATION: none">
-                                    <TD>张三</TD>
-                                    <TD>百度</TD>
-                                    <TD>2018-05-11</TD>
-                                    <TD>深圳湾口岸</TD>
-                                    <TD>商品交易</TD>
-                                    <TD>2018-06-01</TD>
-                                    <TD>
-                                        <a href="${pageContext.request.contextPath }/saleVisit_edit.action?visit_id=<s:property value="visit_id"/>">修改</a>
-                                        &nbsp;&nbsp;
-                                        <a href="${pageContext.request.contextPath }/saleVisit_delete.action?visit_id=<s:property value="visit_id"/>">删除</a>
-                                    </TD>
-                                </TR>
 
                                 </TBODY>
                             </TABLE>
@@ -120,33 +130,37 @@
 
                     <TR>
                         <TD><SPAN id=pagelink>
-											<DIV
-                                                    style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
-												共[<B>10</B>]条记录,[<B>3</B>]页
-												,每页显示
-												
-												<select name="pageSize" onchange="to_page()">
-													<option value="3">3</option>
-													<option value="5">5</option>
-													<option value="10">10</option>
-												</select>
-												条
-												
-												[<A href="javascript:to_page(1)">前一页</A>]
-												
-												<B>
-													<a href="javascript:to_page(1)">1</a>
-													<a href="javascript:to_page(2)">2</a>
-												</B>
-												
-												[<A href="javascript:to_page(2)">后一页</A>] 
-												
-												到
-												<input type="text" size="3" id="page" name="currPage"/>
-												页
-												
-												<input type="button" value="Go" onclick="to_page()"/>
-											</DIV>
+										<DIV
+                                                style="LINE-HEIGHT: 20px; HEIGHT: 20px; TEXT-ALIGN: right">
+	共[<B><s:property value="totalCount"/></B>]条记录,[<B><s:property value="totalPage"/></B>]页
+	,每页显示
+		<select name="pageSize" onchange="to_page()">
+			<option value="3" <s:if test="pageSize==3">selected</s:if>>3</option>
+			<option value="5" <s:if test="pageSize==5">selected</s:if>>5</option>
+			<option value="10" <s:if test="pageSize==10">selected</s:if>>10</option>
+		</select>
+	条
+	<s:if test="currPage != 1">
+        [<A href="javascript:to_page(<s:property value="currPage-1"/>)">前一页</A>]
+    </s:if>
+	<B>
+<s:iterator var="i" begin="1" end="totalPage">
+    <s:if test="currPage == #i">
+        <s:property value="#i"/>
+    </s:if>
+    <s:else>
+        <a href="javascript:to_page(<s:property value="#i"/>)"><s:property value="#i"/></a>
+    </s:else>
+</s:iterator>
+</B>
+	<s:if test="currPage != totalPage">
+        [<A href="javascript:to_page(<s:property value="currPage+1"/>)">后一页</A>]
+    </s:if>
+	到
+		<input type="text" size="3" id="page" name="currPage"/>
+	页
+	<input type="button" value="Go" onclick="to_page()"/>
+</DIV>
 									</SPAN></TD>
                     </TR>
                     </TBODY>

@@ -11,24 +11,34 @@
           rel=stylesheet>
     <META content="MSHTML 6.00.2900.3492" name=GENERATOR>
     <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.11.3.min.js"></script>
-
+    <!-- 日期插件，使用jquery -->
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery/jquery-1.4.2.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/js/jquery/jquery.datepick.css" type="text/css">
+    <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery/jquery.datepick.js"></script>
+    <script type="text/javascript"
+            src="${pageContext.request.contextPath }/js/jquery/jquery.datepick-zh-CN.js"></script>
     <script type="text/javascript">
         $(function () {
-            // 异步加载客户的数据
-            $.post("${pageContext.request.contextPath }/customer_findAll.action", {}, function (data) {
-                // 遍历json数据：
-                $(data).each(function (i, n) {
-                    $("#cust_id").append("<option value='" + n.cust_id + "'>" + n.cust_name + "</option>");
-                });
-            }, "json");
-            // 异步加载用户的数据
-            $.post("${pageContext.request.contextPath }/user_findAll.action", {}, function (data) {
-                // 遍历json数据：
-                $(data).each(function (i, n) {
-                    $("#user_id").append("<option value='" + n.user_id + "'>" + n.user_name + "</option>");
-                });
-            }, "json");
+            //加载业务员名
+            $.post("/user_findAllUserName.action", {}, function (data) {
+                $(data).each(function (index, element) {
+                    $("#user_id").append("<option value='" + element.user_id + "'>" + element.user_name + "</option>")
+                })
+            }, "json")
 
+            //加载客户名
+            $.post("/customer_findAllCustomerName.action", {}, function (data) {
+                $(data).each(function (index, element) {
+                    $("#cust_id").append("<option value='" + element.cust_id + "'>" + element.cust_name + "</option>")
+                })
+            }, "json")
+
+            $(function(){
+                // 添加日期插件
+                //使用class属性处理  'yy-mm-dd' 设置格式"yyyy/mm/dd"
+                $('#visit_time').datepick({dateFormat: 'yy-mm-dd '});
+                $('#visit_nexttime').datepick({dateFormat: 'yy-mm-dd ' });
+            });
         });
     </script>
 </HEAD>
