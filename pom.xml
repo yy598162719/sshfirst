@@ -56,7 +56,18 @@
             <artifactId>struts2-json-plugin</artifactId>
             <version>${struts.version}</version>
         </dependency>
-
+        <!-- convention-plugin插件，使用了这个插件之后，就可以采用注解的方式配置Action -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-convention-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+        <!--config-browser-plugin插件，使用了这个插件之后，就可以很方便的浏览项目中的所有action及其与 jsp view的映射-->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-config-browser-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
 
         <!-- struts2 spring  整合的核心包-->
         <dependency>

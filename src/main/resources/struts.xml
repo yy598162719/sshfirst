@@ -15,7 +15,7 @@
 
         <!-- 定义拦截器 -->
         <interceptors>
-            <interceptor name="privilegeInterceptor" class="com.itheima.crm.web.action.interceptor.JurisdictionInterceptor"/>
+            <interceptor name="privilegeInterceptor" class="com.itheima.crm.web.interceptor.JurisdictionInterceptor"/>
         </interceptors>
 
         <!--全局响应结果-->

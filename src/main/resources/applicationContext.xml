@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context 
@@ -13,47 +14,49 @@
         http://www.springframework.org/schema/aop 
         http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx 
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
-	<!--包扫描-->
-	<context:component-scan base-package="com.itheima.crm"/>
-    <!-- 从属性文件加载连接池的配置 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
-    <!-- spring的c3p0连接池 -->
-    <!-- 创建连接池  配置连接池的属性值 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="${jdbc.driverClass}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="user" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-	</bean>
-	
-	<!-- spring整合hibernate，创建SessionFactory，这是spring整合hibernate的 核心 -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-		<!-- 去掉hibernate.cfg.xml的配置，让spring完全整合hibernate（推荐） -->
-		<property name="dataSource" ref="dataSource"/>
-		<!-- 添加hibernate的其他配置 -->
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-			</props>		
-		</property>
-		<property name="mappingDirectoryLocations">
-			<list>
-				<value>classpath:com/itheima/crm/domain</value>
-			</list>
-		</property>
-	</bean>
-	
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd">
+        <!--包扫描-->
+<context:component-scan base-package="com.itheima.crm"/>
+        <!-- 从属性文件加载连接池的配置 -->
+<context:property-placeholder location="classpath:jdbc.properties"/>
+        <!-- spring的c3p0连接池 -->
+        <!-- 创建连接池  配置连接池的属性值 -->
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<property name="driverClass" value="${jdbc.driverClass}"/>
+<property name="jdbcUrl" value="${jdbc.url}"/>
+<property name="user" value="${jdbc.username}"/>
+<property name="password" value="${jdbc.password}"/>
+</bean>
 
-	<!-- 提供声明式事务处理（XML和注解） -->
-	<!-- 1：创建事务管理器（注入SessionFactory） -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
-	<!-- 2：开启事务的注解支持 ，在Service层添加@Transactional-->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
-</beans>
+        <!-- spring整合hibernate，创建SessionFactory，这是spring整合hibernate的 核心 -->
+<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+<!-- 去掉hibernate.cfg.xml的配置，让spring完全整合hibernate（推荐） -->
+<property name="dataSource" ref="dataSource"/>
+<!-- 添加hibernate的其他配置 -->
+<property name="hibernateProperties">
+    <props>
+        <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.hbm2ddl.auto">update</prop>
+    </props>
+</property>
+<property name="packagesToScan">
+    <list>
+        <value>com.itheima.crm.domain</value>
+    </list>
+</property>
+</bean>
+
+
+        <!-- 提供声明式事务处理（XML和注解） -->
+        <!-- 1：创建事务管理器（注入SessionFactory） -->
+<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+<property name="sessionFactory" ref="sessionFactory"/>
+</bean>
+        <!-- 2：开启事务的注解支持 ，在Service层添加@Transactional-->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+
+        </beans>
